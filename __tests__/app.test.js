@@ -5,19 +5,19 @@ const app = require('../lib/app.js');
 
 describe('authentication routes', () => {
   //------------------------------------------------------//
-  beforeAll(() => {
+  beforeEach(() => {
     return setup(pool);
   });
   //------------------------------------------------------//
 
-  it('/signup returns user sign up info without password', async (res, req) => {
+  it('/signup returns user sign up info without password', async () => {
 
 
-    const resp = await request(app).post('/api/auth/signup').send(req.body);
-    expect(resp).toEqual({ id:1, user: 'tom@jerry.com' });
+    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    expect(resp.body).toEqual({ id:1, email:'tom@jerry.com' });
 
   });
-
+  //---------------------------------------------------------//
 
 
 
