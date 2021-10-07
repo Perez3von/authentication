@@ -8,18 +8,24 @@ describe('authentication routes', () => {
   beforeAll(() => {
     return setup(pool);
   });
-//------------------------------------------------------//
+  //------------------------------------------------------//
 
-it()
-
-
+  it('/signup returns user sign up info without password', async (res, req) => {
 
 
+    const resp = await request(app).post('/api/auth/signup').send(req.body);
+    expect(resp).toEqual({ id:1, user: 'tom@jerry.com' });
+
+  });
 
 
 
 
-//------------------------------------------------------//
+
+
+
+
+  //------------------------------------------------------//
   afterAll(() => {
     pool.end();
   });
