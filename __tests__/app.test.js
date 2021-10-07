@@ -13,8 +13,8 @@ describe('authentication routes', () => {
   it('/signup returns user sign up info without password', async () => {
 
 
-    const resp = await request(app).post('/api/auth/signup').send('');
-    expect(resp.text).toEqual(expect.any(String));
+    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    expect(resp.body).toEqual({ id:1, email:'tom@jerry.com' });
 
   });
   //---------------------------------------------------------//
