@@ -12,11 +12,11 @@ describe('authentication routes', () => {
   });
   //------------------------------------------------------//
 
-  it('/signup returns user sign up info without password', async () => {
+  it('POST /signup returns user sign up info without password', async () => {
 
 
     const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow' });
-    console.log(resp.body);
+    
     expect(resp.body).toEqual({ id:1, email:'tom@jerry.com' });
 
   });
@@ -40,7 +40,7 @@ describe('authentication routes', () => {
   });
 
   //-----------------------------------------------//
-  it('/signup returns error 404', async () => {
+  it('POST /signup returns error 404', async () => {
 
 
     const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow' });
@@ -50,7 +50,7 @@ describe('authentication routes', () => {
   });
 
   //---------------------------------------------------------//
-  it('/login returns user id info without password', async () => {
+  it('POST /login returns user id info without password', async () => {
 
 
     const resp = await request(app).post('/api/auth/login').send({ email:'tom@jerry.com', password:'ilovethatshow' });
@@ -62,14 +62,27 @@ describe('authentication routes', () => {
 
 
   //------------------------------------------------------//
-  it('/login returns status code error', async () => {
+  it('POST /login returns status code error', async () => {
 
 
     const resp = await request(app).post('/api/auth/login').send({ email:'tom@gmail.com', password:'ilovethatshow' });
-    
+   
     expect(resp.status).toEqual(401);
 
   });
+
+
+
+  //------------------------------------------------------//
+
+  // it('GET route to /me that responds with the currently logged in User', async () => {
+
+
+  //   const resp = await request(app).get('/api/auth/me');
+    
+  //   expect(resp.body).toEqual({ id:1, email:'tom@gmail.com' });
+
+  // });
 
 
 
