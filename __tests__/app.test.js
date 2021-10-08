@@ -62,6 +62,18 @@ describe('authentication routes', () => {
 
 
   //------------------------------------------------------//
+  it('/login returns status code error', async () => {
+
+
+    const resp = await request(app).post('/api/auth/login').send({ email:'tom@gmail.com', password:'ilovethatshow' });
+    
+    expect(resp.status).toEqual(401);
+
+  });
+
+
+
+  //------------------------------------------------------//
   afterAll(() => {
     pool.end();
   });
