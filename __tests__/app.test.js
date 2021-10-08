@@ -75,14 +75,15 @@ describe('authentication routes', () => {
 
   //------------------------------------------------------//
 
-  // it('GET route to /me that responds with the currently logged in User', async () => {
+  it('GET route to /me that responds with the currently logged in User', async () => {
 
+    const agent = request.agent(app);
+    await agent.post('/api/auth/login').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    const res = await agent.get('/api/me');
+    //console.log(res.body);
+    expect(res.body).toEqual({ id:1, email:'tom@jerry.com' });
 
-  //   const resp = await request(app).get('/api/auth/me');
-    
-  //   expect(resp.body).toEqual({ id:1, email:'tom@gmail.com' });
-
-  // });
+  });
 
 
 
