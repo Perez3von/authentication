@@ -15,9 +15,9 @@ describe('authentication routes', () => {
   it('POST /signup returns user sign up info without password', async () => {
 
 
-    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow', role:'USER' });
+    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow', role:'ADMIN' });
     
-    expect(resp.body).toEqual({ id:1, email:'tom@jerry.com', role:'USER' });
+    expect(resp.body).toEqual({ id:1, email:'tom@jerry.com', role:'ADMIN' });
 
   });
   //---------------------------------------------------------//
@@ -43,7 +43,7 @@ describe('authentication routes', () => {
   it('POST /signup returns error 404', async () => {
 
 
-    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow', role:'USER' });
+    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow', role:'ADMIN' });
    
     expect(resp.status).toEqual(401);
 
@@ -123,6 +123,22 @@ describe('authentication routes', () => {
     const agent = request.agent(app);
     await agent.post('/api/auth/login').send({ email:'tom@jerry.com', password:'ilovethatshow' });
     const res = await agent.get('/api/me/apples');
+    expect(res.status).toEqual(200);
+
+  });
+
+  //------------------------------------------------------//
+
+
+
+
+
+
+  it('ONLY lets admin modify users title', async () => {
+
+    const agent = request.agent(app);
+    await agent.post('/api/auth/login').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    const res = await agent.post('/api/auth/admin/1');
     expect(res.status).toEqual(200);
 
   });
