@@ -88,6 +88,19 @@ describe('authentication routes', () => {
 
 
   //------------------------------------------------------//
+
+  it('GET route Public that responds with hello public', async () => {
+
+  
+    const res = await request(app).get('/public');
+   
+    expect(res.text).toEqual('<h1>Hello Public</h>');
+
+  });
+
+
+
+  //------------------------------------------------------//
   afterAll(() => {
     pool.end();
   });
