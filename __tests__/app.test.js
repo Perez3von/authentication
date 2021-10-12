@@ -144,6 +144,18 @@ describe('authentication routes', () => {
   });
 
   //------------------------------------------------------//
+
+  it.skip('Admin is not logged in and wants to modify users title, should return 401', async () => {
+
+    const agent = request.agent(app);
+    await agent.post('/api/auth/login').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    await agent.get('/api/auth/logout'); 
+    const res = await agent.post('/api/auth/admin/1');
+    expect(res.status).toEqual(401);
+
+  });
+
+  //------------------------------------------------------//
   afterAll(() => {
     pool.end();
   });
