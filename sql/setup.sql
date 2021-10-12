@@ -14,13 +14,13 @@ CREATE TABLE users (
 
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
-    hash_password TEXT NOT NULL
-   -- role_id BIGINT NOT NULL,
-    --FOREIGN KEY (role_id) REFERENCES roles(id)
+    hash_password TEXT NOT NULL,
+    role_id BIGINT NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
 
 
---INSERT INTO roles (title) VALUES ('USER'), ('ADMIN');
+INSERT INTO roles (title) VALUES ('USER'), ('ADMIN');
 
 

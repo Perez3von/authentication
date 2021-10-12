@@ -12,12 +12,12 @@ describe('authentication routes', () => {
   });
   //------------------------------------------------------//
 
-  it('POST /signup returns user sign up info without password', async () => {
+  it.only('POST /signup returns user sign up info without password', async () => {
 
 
-    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    const resp = await request(app).post('/api/auth/signup').send({ email:'tom@jerry.com', password:'ilovethatshow', role:'USER' });
     
-    expect(resp.body).toEqual({ id:1, email:'tom@jerry.com' });
+    expect(resp.body).toEqual({ id:1, email:'tom@jerry.com', role:'USER' });
 
   });
   //---------------------------------------------------------//
@@ -99,6 +99,33 @@ describe('authentication routes', () => {
   });
 
 
+
+  //------------------------------------------------------//
+
+  it('GET route to apples page only if logged in, should return 401 status', async () => {
+
+    const agent = request.agent(app);
+    await agent.post('/api/auth/login').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    await agent.get('/api/auth/logout'); 
+    const res = await agent.get('/api/me/apples');
+    //console.log(res.body);
+    expect(res.status).toEqual(401);
+
+  });
+
+  //------------------------------------------------------//
+
+  //------------------------------------------------------//
+
+
+  it('GET route to apples page only if logged in, should return a success 200', async () => {
+
+    const agent = request.agent(app);
+    await agent.post('/api/auth/login').send({ email:'tom@jerry.com', password:'ilovethatshow' });
+    const res = await agent.get('/api/me/apples');
+    expect(res.status).toEqual(200);
+
+  });
 
   //------------------------------------------------------//
   afterAll(() => {
